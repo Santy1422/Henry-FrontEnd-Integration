@@ -1,27 +1,26 @@
 import styled from "styled-components"
-export default function SearchBar(props) {
+import React from "react";
+import {useState} from "react"
+import App from "../App";
 
-   const Inputstyle = styled.input`
-   border-radius: 10px;
-   font-size: 15px;
-   `
-   const Botonse = styled.button`
-   color:white;
-   background-color: #25e607;
-   border-radius: 10%;
-   font-family: Arial;
-   font-size: 20px;
-   display:flex;
-   flex-direction:column;
-   align-items: center;
-   margin-top: 5px
 
-   `
+function SearchBar(props) {
+
+const [characters, setCharacters] = useState([])
+  
+   function handleChange(e) {
+		setCharacters(e.target.value);
+	}
+   const aux = () =>{
+      props.onSearch(characters)
+   }
+
    return (
       <div>
-         <Inputstyle type="search" />
-         <Botonse onClick={() => props.onSearch("esto abriria un pj")}>buscar personaje</Botonse>
+         <input onChange={handleChange}/>
+         <button onClick={aux}>buscar personaje</button>
          
       </div>
    );
 }
+export default SearchBar

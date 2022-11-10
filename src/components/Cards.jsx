@@ -12,22 +12,23 @@ margin-left: 10%;
 export default function Cards(props) {
    const { characters } = props;
    return(
-      <DivCards>
+      <DivCards> 
          {
-            characters.map((element)=> {
-               return <Card
-               name={element.name}
-               species={element.species}
-               gender={element.gender}
-               image={element.image}
-               onClose={()=> window.alert('Emulamos que se cierraxxdd')}
+            characters.map((character , index)=> {
+               console.log(index)
+               return <Card key = {index}
+               name={character.name}
+               species={character.species}
+               gender={character.gender}
+               image={character.image}
+               onClose={props.onClose}
+               detailId={character.id}
                />
             })
          }
       </DivCards>
    ); 
 }
-
 
 //tengo un objeto rick
 //tiene 4 propiedades

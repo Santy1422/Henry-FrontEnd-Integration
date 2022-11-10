@@ -1,5 +1,5 @@
 import styled from "styled-components"
-
+import { Link } from "react-router-dom"
 const DivCard = styled.div`
 background-color: #9b9badcf;
 `
@@ -11,18 +11,19 @@ border-radius: 10%;
 
 
 export default function Card(props) {
+const aux = () =>{
+props.onClose(props.name)
+
+}
+   console.log(props)
    return (
       <DivCard>
-         {
-    <><><><><Botonse  onClick={()=>props.onClose}>X</Botonse>
-               <h2>name: {props.name}</h2>
-            </><h2>species: {props.species}</h2>
-            </><h2>gender: {props.gender}</h2></><img src={props.image} alt="image.props"></img></>
-    /* <button onClick={}>X</button>
-         <h2></h2>
-         <h2></h2
-         <h2></h2>
-         <img  src={} alt="" /> */}
-      </DivCard>
-   )
+      <Botonse onClick={() => props.onClose(props.detailIds)}>X</Botonse>
+      
+      <Link to={`/detail/${props.detailId}`} >  <h2 key={props.key}>{props.name}</h2></Link>
+      <h2>{props.species}</h2>
+      <h2>{props.gender}</h2>
+      <img src={props.image} alt="" />
+   </DivCard>
+);
 }
