@@ -1,70 +1,31 @@
-import './App.css'
-import Cards from './components/Cards.jsx'
-import Nav from './components/Nav.jsx'
-import { useState, useEffect} from 'react'
-import {Routes, Route, useLocation} from 'react-router-dom'
-import About from './components/About.jsx'
-import Detail from './components/Detail.jsx'
-import Form from './components/Form.jsx'
-import {useNavigate} from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home/Home.jsx"
+import BandDetail from "./components/BandDetail/BandDetail.jsx"
+import CreateBand from "./components/CreateBand/CreateBand.jsx"
+import Nav from "./components/Nav/Nav.jsx"
+/* 1️⃣ ***COMPONENTE APP*** 1️⃣
+Implementar el componente App. En este ejercicio tendrás que crear diferentes rutas para algunos componentes. 
+¡Ten en cuenta los nombres y las especificaciones de cada uno!
 
+REQUISITOS
+🟢 El componente Nav debe renderizarse en todas las rutas.
+🟢 El componente Home debe renderizarse en la ruta "/".
+🟢 El componente BandDetail debe renderizarse en la ruta "/band/:id".
+🟢 El componente CreateBand debe renderizarse en la ruta "/band/create".
+*/
 
-function App () {
+import React from "react";
 
-  const [characters, setCharacters] = useState([])
-  
-  const location = useLocation()
+const App = () => {
+   return <div>
+      <Nav/>
+    <Routes>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/band/:id' element={<BandDetail/>}/>
+      <Route path='/band/create' element={<CreateBand/>}/>
 
-  const navigate = useNavigate()
-
-  const [access, setAccess] = useState(false)
-  const username = 'ejemplo@gmail.com'
-  const password= '123flor'
-
-  function login(userData) {
-    if (userData.password === password && userData.username === username){
-      setAccess(true);
-      navigate('/home');
-    }
-  }
-
-  useEffect(() => {
-    !access && navigate('/');
-  }, [access, navigate]);
-  
-  const onSearch = (character) => {
-    const chars = [...characters];
-    fetch(`https://rickandmortyapi.com/api/character/${character}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (chars.find((char) => char.id === data.id)) {
-          window.alert("El personaje ya esta agregado");
-        } else if (data.name) {
-          setCharacters((oldChars) => [...oldChars, data]);
-        } else {
-          window.alert("No hay personajes con ese ID");
-        }
-     });
-  };
-
-  const onClose = (id) => {
-    setCharacters(characters => characters.filter(char => char.id !== id))
-  }
-
-
-
-  return (
-    <div>
-     {location.pathname === '/' ? null : <Nav onSearch={onSearch}/>}
-      <Routes>
-          <Route path='/' element={<Form login={login} />}/>
-          <Route path='/home' element={<Cards characters={characters} id={characters.id} onClose={onClose}/>}/>
-          <Route path='/about' element={<About/>}/>
-          <Route path='/detail/:detailId' element={<Detail/>}/>
       </Routes>
-    </div>
-
-  )
-}
-
-export default App
+      
+       </div>;
+};
+export default App;
